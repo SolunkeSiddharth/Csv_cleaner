@@ -24,9 +24,6 @@ def index():
 
         df.replace(r'^\s*$', pd.NA, regex=True, inplace=True)
 
-        
-        
-        # count missing values
         missing_counts = df.isna().sum()
         columns = missing_counts[missing_counts > 0].index.tolist()
 
@@ -83,5 +80,8 @@ def clean():
     return send_file(cleaned_file, as_attachment=True)
 
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
